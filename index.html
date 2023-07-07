@@ -58,21 +58,30 @@
   function checkGuess() {
 
     let userGuess = parseInt(guessField.value);//error de sintaxis 
+    if (Number.isInteger(userGuess)) { //Se agrego este if para lograr mostrar una alerta diciendole al usuario que ingrese un numero
+      
+    
     if(guessCount === 1) {
       guesses.textContent = 'Número aleatorio anterior: ';
     }
     guesses.textContent += userGuess + ' ';
 
-    if(userGuess === randomNumber) {//error en la comparacion por el tipo de datos ademas que el orden en que se debe de mostrar la respuesta esta alrevez
+    if(userGuess === randomNumber) {//El texto estaba alrevez 
       lastResult.textContent = 'Felicitaciones! adivinaste el número!';
       lastResult.style.backgroundColor = 'green'; //el color era negro y deberia ser verde
       lowOrHi.textContent = '';
       setGameOver();
     } else if(guessCount === ATTEMPS) {
-      lastResult.textContent = '!!!Pérdistes!!! El numero era: ' + randomNumber;//la respuesta debe de mostrar el numero que hay que adivinar
+      lastResult.textContent = 'Felicitaciones! adivinaste el numero!';
+      lastResult.style.backgroundColor = 'green';
+      lowOrHi.textContent = ' ';
+      setGameOver();
+    }else if(guessCount === ATTEMPS){
+      lastResult.textContent = '!!!Pérdistes!!! '
       lastResult.style.backgroundColor = 'red';
       setGameOver();
-    } else {
+      }
+     else{
       lastResult.textContent = 'Incorrecto! ';
       lastResult.style.backgroundColor = 'black';//El color debe de ser negro y no verde 
       if(userGuess < randomNumber) {
@@ -82,7 +91,10 @@
       }
     }
 
-    guessCount++;
+  guessCount++;
+} else {
+  alert('Debes ingresar un número entero. Intenta nuevamente.');
+}
     guessField.value = '';
     guessField.focus();
   }
